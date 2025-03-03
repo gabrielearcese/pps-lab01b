@@ -2,7 +2,11 @@ package e1;
 
 class CoreBankAccount {
 
-    private int balance = 0;
+    private int balance;
+
+    public CoreBankAccount(int balance) {
+        this.balance = balance;
+    }
 
     public int getBalance() {
         return this.balance;
