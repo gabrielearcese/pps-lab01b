@@ -2,8 +2,7 @@ package e1;
 
 public class GoldBankAccount implements BankAccount{
 
-    public static final int GOLD_AMOUNT_OVERDRAFT = 500;
-
+    private static final int GOLD_AMOUNT_OVERDRAFT = 500;
     private CoreBankAccount base = new CoreBankAccount(INITIAL_BALANCE);
 
     @Override

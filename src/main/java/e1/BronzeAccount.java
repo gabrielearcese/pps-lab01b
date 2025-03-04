@@ -2,7 +2,7 @@ package e1;
 
 public class BronzeAccount implements BankAccount{
 
-    public static final int WITHDRAW_100 = 100;
+    private static final int WITHDRAW_100 = 100;
     private CoreBankAccount base = new CoreBankAccount(INITIAL_BALANCE);
 
     @Override

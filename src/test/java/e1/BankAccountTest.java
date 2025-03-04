@@ -7,17 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BankAccountTest {
 
-    public static final int DEPOSIT_1000 = 1000;
-    public static final int INITIAL_BALANCE = 0;
-    public static final int EXPECTED_1000 = 1000;
-    public static final int WITHDRAW_200 = 200;
-    public static final int WITHDRAW_1200 = 1200;
-    public static final int EXPECTED_800 = 800;
-    public static final int WITHDRAW_10 = 10;
-    public static final int WITHDRAW_1500 = 1500;
-    public static final int GOLD_ACCOUNT_MAX_OVERDRAFT = 500;
-    public static final int EXPECTED_799 = 799;
-    public static final int EXPECTED_990 = 990;
+    private static final int DEPOSIT_1000 = 1000;
+    private static final int INITIAL_BALANCE = 0;
+    private static final int EXPECTED_1000 = 1000;
+    private static final int WITHDRAW_200 = 200;
+    private static final int WITHDRAW_1200 = 1200;
+    private static final int EXPECTED_800 = 800;
+    private static final int WITHDRAW_10 = 10;
+    private static final int WITHDRAW_1500 = 1500;
+    private static final int GOLD_ACCOUNT_MAX_OVERDRAFT = 500;
+    private static final int EXPECTED_799 = 799;
+    private static final int EXPECTED_990 = 990;
     private BronzeAccount bronzeAccount;
     private SilverBankAccount account;
     private GoldBankAccount goldAccount;
@@ -85,5 +85,11 @@ public class BankAccountTest {
     public void testBronzeCannotWithdrawMoreThanAvailable(){
         this.bronzeAccount.deposit(DEPOSIT_1000);
         assertThrows(IllegalStateException.class, () -> this.account.withdraw(WITHDRAW_1200));
+    }
+
+    @Test
+    public void testGoldWithdrawWithoutMoneyOnTheAccount(){
+        this.goldAccount.withdraw(WITHDRAW_200);
+        assertTrue(goldAccount.getBalance()>=-GOLD_ACCOUNT_MAX_OVERDRAFT);
     }
 }
