@@ -9,17 +9,15 @@ public class BankAccountTest {
 
     public static final int DEPOSIT_1000 = 1000;
     public static final int INITIAL_BALANCE = 0;
-    public static final int MONEY_1000 = 1000;
+    public static final int EXPECTED_1000 = 1000;
     public static final int WITHDRAW_200 = 200;
     public static final int WITHDRAW_1200 = 1200;
-    public static final int MONEY_800 = 800;
+    public static final int EXPECTED_800 = 800;
     public static final int WITHDRAW_10 = 10;
-    public static final int WITHDRAW_1600 = 1600;
     public static final int WITHDRAW_1500 = 1500;
     public static final int GOLD_ACCOUNT_MAX_OVERDRAFT = 500;
-    public static final int MONEY_799 = 799;
-    public static final int MONEY_900 = 900;
-    public static final int MONEY_990 = 990;
+    public static final int EXPECTED_799 = 799;
+    public static final int EXPECTED_990 = 990;
     private BronzeAccount bronzeAccount;
     private SilverBankAccount account;
     private GoldBankAccount goldAccount;
@@ -39,14 +37,14 @@ public class BankAccountTest {
     @Test
     public void testCanDeposit() {
         this.account.deposit(DEPOSIT_1000);
-        assertEquals(MONEY_1000, this.account.getBalance());
+        assertEquals(EXPECTED_1000, this.account.getBalance());
     }
 
     @Test
     public void testCanWithdraw() {
         this.account.deposit(DEPOSIT_1000);
         this.account.withdraw(WITHDRAW_200);
-        assertEquals(MONEY_799, this.account.getBalance());
+        assertEquals(EXPECTED_799, this.account.getBalance());
     }
 
     @Test
@@ -59,7 +57,7 @@ public class BankAccountTest {
     public void testGoldWithdraw(){
         this.goldAccount.deposit(DEPOSIT_1000);
         this.goldAccount.withdraw(WITHDRAW_200);
-        assertEquals(goldAccount.getBalance(), MONEY_800);
+        assertEquals(goldAccount.getBalance(), EXPECTED_800);
     }
 
     @Test
@@ -73,14 +71,14 @@ public class BankAccountTest {
     public void testBronzeWithdrawWithoutFee(){
         this.bronzeAccount.deposit(DEPOSIT_1000);
         this.bronzeAccount.withdraw(WITHDRAW_10);
-        assertEquals(bronzeAccount.getBalance(), MONEY_990);
+        assertEquals(bronzeAccount.getBalance(), EXPECTED_990);
     }
 
     @Test
     public void testBronzeWithdrawWithFee(){
         this.bronzeAccount.deposit(DEPOSIT_1000);
         this.bronzeAccount.withdraw(WITHDRAW_200);
-        assertEquals(bronzeAccount.getBalance(), MONEY_799);
+        assertEquals(bronzeAccount.getBalance(), EXPECTED_799);
     }
 
     @Test

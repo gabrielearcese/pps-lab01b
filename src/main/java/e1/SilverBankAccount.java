@@ -5,17 +5,17 @@ public class SilverBankAccount implements BankAccount{
     private CoreBankAccount base = new CoreBankAccount(INITIAL_BALANCE);
 
     public int getBalance() {
-        return base.getBalance();
+        return this.base.getBalance();
     }
 
     public void deposit(int amount) {
-        base.deposit(amount);
+        this.base.deposit(amount);
     }
 
     public void withdraw(int amount) {
         if (this.getBalance() < amount){
             throw new IllegalStateException();
         }
-        base.withdraw(amount + 1);
+        this.base.withdraw(amount + 1);
     }
 }

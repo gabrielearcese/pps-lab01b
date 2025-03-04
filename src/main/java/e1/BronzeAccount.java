@@ -7,12 +7,12 @@ public class BronzeAccount implements BankAccount{
 
     @Override
     public int getBalance() {
-        return base.getBalance();
+        return this.base.getBalance();
     }
 
     @Override
     public void deposit(int amount) {
-        base.deposit(amount);
+        this.base.deposit(amount);
     }
 
     @Override
@@ -20,9 +20,9 @@ public class BronzeAccount implements BankAccount{
         if (this.getBalance() < amount){
             throw new IllegalStateException();
         }else if (amount < WITHDRAW_100) {
-            base.withdraw(amount);
+            this.base.withdraw(amount);
         }else{
-            base.withdraw(amount + 1);
+            this.base.withdraw(amount + 1);
         }
     }
 }

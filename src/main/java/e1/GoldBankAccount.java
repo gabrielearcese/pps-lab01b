@@ -8,12 +8,12 @@ public class GoldBankAccount implements BankAccount{
 
     @Override
     public int getBalance() {
-        return base.getBalance();
+        return this.base.getBalance();
     }
 
     @Override
     public void deposit(int amount) {
-        base.deposit(amount);
+        this.base.deposit(amount);
     }
 
     @Override
@@ -21,6 +21,6 @@ public class GoldBankAccount implements BankAccount{
         if (this.getBalance() + GOLD_AMOUNT_OVERDRAFT < amount){
             throw new IllegalStateException();
         }
-        base.withdraw(amount);
+        this.base.withdraw(amount);
     }
 }
