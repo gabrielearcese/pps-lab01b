@@ -109,7 +109,4 @@ public class BankAccountTest {
         this.account.deposit(DEPOSIT_0);
         assertEquals(EXPECTED_0, this.account.getBalance());
     }
-
-
-
 }

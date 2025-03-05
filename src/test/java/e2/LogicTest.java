@@ -17,6 +17,7 @@ public class LogicTest {
   public static final int THREE_SQUARE_MOVE = 3;
   private Random random;
   private LogicsImpl logics;
+  private PiecesImpl pieces;
   private int row;
   private int col;
 
@@ -27,6 +28,7 @@ public class LogicTest {
     random = new Random();
     row = random.nextInt(2) + 1;
     col = (row == 1) ? 2 : 1;
+    pieces = new PiecesImpl();
   }
 
   @Test
@@ -41,15 +43,15 @@ public class LogicTest {
 
   @Test
   void testInitialPositionsAreDifferent() {
-    assertNotEquals(logics.getKnightPosition(),logics.getPawnPosition());
+    assertNotEquals(pieces.getKnightPosition(),pieces.getPawnPosition());
   }
 
   @Test
   void testAreInTheSamePosition(){
-    if(logics.areInTheSamePosition()){
-      assertEquals(logics.getKnightPosition(),logics.getPawnPosition());
+    if(pieces.areInTheSamePosition()){
+      assertEquals(pieces.getKnightPosition(),pieces.getPawnPosition());
     }else{
-      assertNotEquals(logics.getKnightPosition(),logics.getPawnPosition());
+      assertNotEquals(pieces.getKnightPosition(),pieces.getPawnPosition());
     }
   }
 
@@ -63,7 +65,7 @@ public class LogicTest {
 
   @Test
   void testKnightCannotMoveIllegallyFromTheTop(){
-    logics.moveKnight(INITIAL_ROW, INITIAL_COL);
+    pieces.moveKnight(INITIAL_ROW, INITIAL_COL);
     assertFalse(logics.hit(INITIAL_ROW, INITIAL_COL + 1));
     assertFalse(logics.hit(INITIAL_ROW, INITIAL_COL + 2));
     assertFalse(logics.hit(INITIAL_ROW, INITIAL_COL + 3));
@@ -74,7 +76,7 @@ public class LogicTest {
 
   @Test
   void testKnightCannotMoveIllegallyFromTheBottom(){
-    logics.moveKnight(LAST_ROW, LAST_COL);
+    pieces.moveKnight(LAST_ROW, LAST_COL);
     assertFalse(logics.hit(LAST_ROW, LAST_COL - ONE_SQUARE_MOVE));
     assertFalse(logics.hit(LAST_ROW, LAST_COL - TWO_SQUARE_MOVE));
     assertFalse(logics.hit(LAST_ROW, LAST_COL - THREE_SQUARE_MOVE));
@@ -85,13 +87,13 @@ public class LogicTest {
 
   @Test
   void testKnightMoveCorrectlyFromTheTop(){
-    logics.moveKnight(INITIAL_ROW, INITIAL_COL);
-    logics.hit(logics.getKnightPosition().getX()+row,logics.getKnightPosition().getY()+col);
+    pieces.moveKnight(INITIAL_ROW, INITIAL_COL);
+    logics.hit(row,col);
   }
 
   @Test
   void testKnightMoveCorrectlyFromTheBottom(){
-    logics.moveKnight(LAST_ROW, LAST_COL);
-    logics.hit(logics.getKnightPosition().getX()-row,logics.getKnightPosition().getY()-col);
+    pieces.moveKnight(LAST_ROW, LAST_COL);
+    logics.hit(row,col);
   }
 }

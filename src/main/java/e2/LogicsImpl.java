@@ -4,21 +4,12 @@ import java.util.*;
 
 public class LogicsImpl implements Logics {
 
-	private final Pair<Integer,Integer> pawn;
-	private Pair<Integer,Integer> knight;
-	private final Random random = new Random();
 	private final int size;
+	private PiecesImpl pieces;
 
 	public LogicsImpl(int size){
 		this.size = size;
-		this.pawn = this.randomEmptyPosition();
-		this.knight = this.randomEmptyPosition();
-	}
-
-	private final Pair<Integer,Integer> randomEmptyPosition(){
-		Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
-		// the recursive call below prevents clash with an existing pawn
-		return this.pawn!=null && this.pawn.equals(pos) ? randomEmptyPosition() : pos;
+		this.pieces = new PiecesImpl();
 	}
 
 	@Override
@@ -27,47 +18,23 @@ public class LogicsImpl implements Logics {
 			throw new IndexOutOfBoundsException();
 		}
 		// Below a compact way to express allowed moves for the knight
-		int x = row-this.knight.getX();
-		int y = col-this.knight.getY();
+		int x = row-this.pieces.getKnightPosition().getX();
+		int y = col-this.pieces.getKnightPosition().getY();
 		if (x!=0 && y!=0 && Math.abs(x)+Math.abs(y)==3) {
-			this.knight = new Pair<>(row,col);
-			return this.pawn.equals(this.knight);
+			this.pieces.moveKnight(row, col);
+			return this.pieces.getPawnPosition().equals(this.pieces.getKnightPosition());
 		}
 		return false;
 	}
 
 	@Override
 	public boolean hasKnight(int row, int col) {
-		return this.knight.equals(new Pair<>(row,col));
+		return this.pieces.getKnightPosition().equals(new Pair<>(row,col));
 	}
 
 	@Override
 	public boolean hasPawn(int row, int col) {
-		return this.pawn.equals(new Pair<>(row,col));
-	}
-
-	@Override
-	public void moveKnight(int row, int col){
-		this.knight = new Pair<>(row,col);
-	}
-
-	@Override
-	public Pair<Integer, Integer> getKnightPosition() {
-		return this.knight;
-	}
-
-	@Override
-	public Pair<Integer, Integer> getPawnPosition() {
-		return this.pawn;
-	}
-
-	@Override
-	public boolean areInTheSamePosition(){
-		if(this.getKnightPosition() == this.getPawnPosition()){
-			return true;
-		}else{
-			return false;
-		}
+		return this.pieces.getPawnPosition().equals(new Pair<>(row,col));
 	}
 
 }
