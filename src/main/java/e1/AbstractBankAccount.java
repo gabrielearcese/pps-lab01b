@@ -21,7 +21,7 @@ public abstract class AbstractBankAccount implements BankAccount {
     @Override
     public final void withdraw(int amount) {
         if (!canWithdraw(amount)) {
-            throw new IllegalStateException("Saldo insufficiente per prelevare " + amount);
+            throw new IllegalStateException("Not enough money for withdraw " + amount);
         }
         base.withdraw(modifyAmount(amount));
     }
