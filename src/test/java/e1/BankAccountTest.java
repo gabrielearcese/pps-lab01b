@@ -7,17 +7,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BankAccountTest {
 
-    private static final int DEPOSIT_1000 = 1000;
-    private static final int INITIAL_BALANCE = 0;
-    private static final int EXPECTED_1000 = 1000;
-    private static final int WITHDRAW_200 = 200;
-    private static final int WITHDRAW_1200 = 1200;
-    private static final int EXPECTED_800 = 800;
-    private static final int WITHDRAW_10 = 10;
-    private static final int WITHDRAW_1500 = 1500;
-    private static final int GOLD_ACCOUNT_MAX_OVERDRAFT = 500;
-    private static final int EXPECTED_799 = 799;
-    private static final int EXPECTED_990 = 990;
+    public static final int DEPOSIT_1000 = 1000;
+    public static final int INITIAL_BALANCE = 0;
+    public static final int EXPECTED_1000 = 1000;
+    public static final int WITHDRAW_200 = 200;
+    public static final int WITHDRAW_1200 = 1200;
+    public static final int EXPECTED_800 = 800;
+    public static final int WITHDRAW_10 = 10;
+    public static final int WITHDRAW_1500 = 1500;
+    public static final int GOLD_ACCOUNT_MAX_OVERDRAFT = 500;
+    public static final int EXPECTED_799 = 799;
+    public static final int EXPECTED_990 = 990;
+    public static final int WITHDRAW_1000 = 1000;
+    public static final int EXPECTED_UNDER_ONE_EURO = -1;
+    public static final int EXPECTED_0 = 0;
+    public static final int DEPOSIT_0 = 0;
     private BronzeAccount bronzeAccount;
     private SilverBankAccount account;
     private GoldBankAccount goldAccount;
@@ -84,7 +88,7 @@ public class BankAccountTest {
     @Test
     public void testBronzeCannotWithdrawMoreThanAvailable(){
         this.bronzeAccount.deposit(DEPOSIT_1000);
-        assertThrows(IllegalStateException.class, () -> this.account.withdraw(WITHDRAW_1200));
+        assertThrows(IllegalStateException.class, () -> this.bronzeAccount.withdraw(WITHDRAW_1200));
     }
 
     @Test
@@ -92,4 +96,20 @@ public class BankAccountTest {
         this.goldAccount.withdraw(WITHDRAW_200);
         assertTrue(goldAccount.getBalance()>=-GOLD_ACCOUNT_MAX_OVERDRAFT);
     }
+
+    @Test
+    public void testCanWithdrawExactBalance() {
+        this.account.deposit(DEPOSIT_1000);
+        this.account.withdraw(WITHDRAW_1000);
+        assertEquals(EXPECTED_UNDER_ONE_EURO, this.account.getBalance());
+    }
+
+    @Test
+    public void testDepositZero() {
+        this.account.deposit(DEPOSIT_0);
+        assertEquals(EXPECTED_0, this.account.getBalance());
+    }
+
+
+
 }

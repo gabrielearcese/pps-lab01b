@@ -1,28 +1,20 @@
 package e1;
 
-public class BronzeAccount implements BankAccount{
+public class BronzeAccount extends AbstractBankAccount {
 
     private static final int WITHDRAW_100 = 100;
-    private CoreBankAccount base = new CoreBankAccount(INITIAL_BALANCE);
 
-    @Override
-    public int getBalance() {
-        return this.base.getBalance();
+    public BronzeAccount() {
+        super(INITIAL_BALANCE);
     }
 
     @Override
-    public void deposit(int amount) {
-        this.base.deposit(amount);
+    protected boolean canWithdraw(int amount) {
+        return this.getBalance() >= amount;
     }
 
     @Override
-    public void withdraw(int amount) {
-        if (this.getBalance() < amount){
-            throw new IllegalStateException();
-        }else if (amount < WITHDRAW_100) {
-            this.base.withdraw(amount);
-        }else{
-            this.base.withdraw(amount + 1);
-        }
+    protected int modifyAmount(int amount) {
+        return (amount < WITHDRAW_100) ? amount : amount + 1;
     }
 }
