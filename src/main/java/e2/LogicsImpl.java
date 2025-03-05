@@ -3,24 +3,24 @@ package e2;
 import java.util.*;
 
 public class LogicsImpl implements Logics {
-	
+
 	private final Pair<Integer,Integer> pawn;
 	private Pair<Integer,Integer> knight;
 	private final Random random = new Random();
 	private final int size;
-	 
-    public LogicsImpl(int size){
-    	this.size = size;
-        this.pawn = this.randomEmptyPosition();
-        this.knight = this.randomEmptyPosition();	
-    }
-    
+
+	public LogicsImpl(int size){
+		this.size = size;
+		this.pawn = this.randomEmptyPosition();
+		this.knight = this.randomEmptyPosition();
+	}
+
 	private final Pair<Integer,Integer> randomEmptyPosition(){
-    	Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
-    	// the recursive call below prevents clash with an existing pawn
-    	return this.pawn!=null && this.pawn.equals(pos) ? randomEmptyPosition() : pos;
-    }
-    
+		Pair<Integer,Integer> pos = new Pair<>(this.random.nextInt(size),this.random.nextInt(size));
+		// the recursive call below prevents clash with an existing pawn
+		return this.pawn!=null && this.pawn.equals(pos) ? randomEmptyPosition() : pos;
+	}
+
 	@Override
 	public boolean hit(int row, int col) {
 		if (row<0 || col<0 || row >= this.size || col >= this.size) {
@@ -45,4 +45,29 @@ public class LogicsImpl implements Logics {
 	public boolean hasPawn(int row, int col) {
 		return this.pawn.equals(new Pair<>(row,col));
 	}
+
+	@Override
+	public void moveKnight(int row, int col){
+		this.knight = new Pair<>(row,col);
+	}
+
+	@Override
+	public Pair<Integer, Integer> getKnightPosition() {
+		return this.knight;
+	}
+
+	@Override
+	public Pair<Integer, Integer> getPawnPosition() {
+		return this.pawn;
+	}
+
+	@Override
+	public boolean areInTheSamePosition(){
+		if(this.getKnightPosition() == this.getPawnPosition()){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 }
